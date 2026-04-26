@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 1 Year, Ananya 🌸</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap');
+
+  :root {
+    --cream: #FFF9F0;
+    --warm: #FFE8C8;
+    --blush: #FFB5BA;
+    --green: #A8D8A8;
+    --sky: #B5D8F7;
+    --brown: #8B6355;
+    --dark: #3D2B1F;
+    --pink: #FF8FA3;
+    --gold: #FFD166;
+    --spotify-green: #1DB954;
+    --spotify-dark: #121212;
+    --spotify-gray: #282828;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Caveat', cursive;
+    background: var(--cream);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    cursor: default;
+  }
+
+  /* ======= SCENE SYSTEM ======= */
+  .scene {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  .scene.active {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+  }
+
+  /* ======= SCENE 1: BICYCLE ======= */
+  #scene-bicycle {
+    background: linear-gradient(180deg, #B5D8F7 0%, #D4EDFF 45%, #A8D8A8 45%, #8BC88B 100%);
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .sun {
+    position: absolute;
+    top: 40px;
+    right: 80px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .ground-path {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 45%;
+  }
+
+  /* Road */
+  .road {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background: #C4A882;
+    border-top: 3px dashed #FFF;
+  }
+
+  .house-scene {
+    position: absolute;
+    right: 80px;
+    bottom: 28px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    transform: scale(1.45);
+    transform-origin: bottom right;
+  }
+  .house-scene:hover { transform: scale(1.52); transform-origin: bottom right; }
+
+  .house-label {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: var(--dark);
+    white-space: nowrap;
+    background: rgba(255,255,255,0.8);
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 2px dashed var(--brown);
+  }
+
+  .bicycle-wrapper {
+    position: absolute;
+    bottom: 26px;
+    left: -200px;
+    animation: rideBike 4s ease-in-out forwards;
+  }
+
+  @keyframes rideBike {
+    0% { left: -200px; }
+    70% { left: calc(50% - 280px); }
+    85% { left: calc(50% - 280px); }
+    100% { left: calc(50% - 220px); }
+  }
+
+  .wheel-spin {
+    animation: spin 0.5s linear infinite;
+    transform-origin: center;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .bounce {
+    animation: bounce 0.4s ease-in-out infinite alternate;
+  }
+  @keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-4px); }
+  }
+
+  .click-hint {
+    position: absolute;
+    bottom: 100px;
+    right: 100px;
+    font-size: 18px;
+    color: var(--dark);
+    text-align: center;
+    opacity: 0;
+    animation: fadeInHint 1s ease 4s forwards;
+    pointer-events: none;
+  }
+  @keyframes fadeInHint {
+    to { opacity: 1; }
+  }
+
+  .arrow-bounce {
+    display: inline-block;
+    animation: arrowBounce 0.7s ease-in-out infinite alternate;
+  }
+  @keyframes arrowBounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(6px); }
+  }
+
+  /* Tree decorations */
+  .tree {
+    position: absolute;
+    bottom: 28px;
+  }
+
+  /* ======= SCENE 2: FLOWERS ======= */
+  #scene-flowers {
+    background: linear-gradient(180deg, #FFF0E6 0%, #FFE4CC 100%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .room-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .room-floor {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 35%;
+    background: #D4A57A;
+    border-top: 4px solid #B8895C;
+  }
+
+  .room-wall {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 65%;
+    background: #FFF0E6;
+  }
+
+  .wallpaper-pattern {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 65%;
+    opacity: 0.15;
+  }
+
+  .flower-title {
+    font-size: 32px;
+    color: var(--dark);
+    text-align: center;
+    z-index: 10;
+    margin-bottom: 10px;
+  }
+
+  .flower-subtitle {
+    font-size: 18px;
+    color: #8B6355;
+    text-align: center;
+    z-index: 10;
+    margin-bottom: 20px;
+  }
+
+  .flower-options {
+    display: flex;
+    gap: 40px;
+    z-index: 10;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .flower-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .flower-card:hover { transform: scale(1.1) rotate(-2deg); }
+
+  .flower-label {
+    font-size: 20px;
+    color: var(--dark);
+    background: rgba(255,255,255,0.8);
+    padding: 4px 14px;
+    border-radius: 20px;
+    border: 2px dashed var(--pink);
+  }
+
+  /* ======= SCENE 3: LETTER ======= */
+  #scene-letter {
+    background: #FFF9F0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .letter-paper {
+    width: min(540px, 90vw);
+    background: #FFFEF5;
+    border: 2px solid #E8D5B0;
+    border-radius: 4px;
+    padding: 40px 44px;
+    box-shadow: 4px 4px 0 #E8D5B0, 8px 8px 0 rgba(0,0,0,0.05);
+    position: relative;
+    font-size: 20px;
+    line-height: 1.7;
+    color: var(--dark);
+    animation: letterSlide 0.6s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  @keyframes letterSlide {
+    from { opacity: 0; transform: translateY(30px) rotate(-1deg); }
+    to { opacity: 1; transform: translateY(0) rotate(0deg); }
+  }
+
+  .letter-flower-icon {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .letter-closing {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #8B6355;
+  }
+
+  .letter-continue-btn {
+    margin-top: 24px;
+    background: var(--pink);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 3px solid var(--dark);
+    box-shadow: 3px 3px 0 var(--dark);
+  }
+  .letter-continue-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--dark);
+  }
+
+  /* ======= SCENE 4: PHONE NOTIFICATION ======= */
+  #scene-phone {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .phone-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .phone-ring-text {
+    font-size: 26px;
+    color: white;
+    text-align: center;
+    animation: ringPulse 0.5s ease-in-out infinite alternate;
+  }
+  @keyframes ringPulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+  }
+
+  .phone-svg-wrapper {
+    cursor: pointer;
+    transition: transform 0.2s;
+    animation: phoneShake 0.5s ease-in-out infinite;
+  }
+  .phone-svg-wrapper:hover { transform: scale(1.05); }
+
+  @keyframes phoneShake {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  .notification-bubble {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 16px;
+    padding: 14px 20px;
+    width: 260px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    animation: notifPop 0.4s ease 0.5s both;
+  }
+
+  @keyframes notifPop {
+    from { opacity: 0; transform: translateX(-50%) scale(0.8); }
+    to { opacity: 1; transform: translateX(-50%) scale(1); }
+  }
+
+  .notif-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #888;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .notif-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #121212;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 4px;
+  }
+
+  .notif-body {
+    font-size: 13px;
+    color: #444;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .notif-cta {
+    margin-top: 12px;
+    background: var(--spotify-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+  }
+  .notif-cta:hover { background: #1ed760; }
+
+  /* ======= SCENE 5: WRAPPED ======= */
+  #scene-wrapped {
+    background: var(--spotify-dark);
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .wrapped-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 0 40px;
+  }
+
+  .wrapped-slide {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 30px;
+    position: relative;
+    text-align: center;
+  }
+
+  .slide-1 { background: linear-gradient(160deg, #FF6B6B, #FFE66D); }
+  .slide-2 { background: linear-gradient(160deg, #A8EDEA, #FED6E3); }
+  .slide-3 { background: linear-gradient(160deg, #1DB954, #121212); }
+  .slide-4 { background: linear-gradient(160deg, #667eea, #764ba2); }
+  .slide-5 { background: linear-gradient(160deg, #f093fb, #f5576c); }
+  .slide-6 { background: linear-gradient(160deg, #4facfe, #00f2fe); }
+  .slide-7 { background: linear-gradient(160deg, #43e97b, #38f9d7); }
+  .slide-8 { background: linear-gradient(160deg, #fa709a, #fee140); }
+
+  .wrapped-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 16px;
+  }
+
+  .wrapped-big {
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(48px, 12vw, 90px);
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .wrapped-med {
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .wrapped-sub {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(16px, 4vw, 22px);
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+  }
+
+  .wrapped-emoji {
+    font-size: 60px;
+    margin-bottom: 16px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(28px, 7vw, 42px);
+    font-weight: 900;
+    color: white;
+  }
+
+  .stat-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+  }
+
+  .song-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .song-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .song-num {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.5);
+    width: 28px;
+    flex-shrink: 0;
+  }
+
+  .song-info { flex: 1; }
+
+  .song-name {
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .song-artist {
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 2px;
+  }
+
+  .song-note {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  .vinyl-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .scroll-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.7);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    animation: fadeUpDown 1.5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  @keyframes fadeUpDown {
+    0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+  }
+
+  .wrapped-done-btn {
+    background: white;
+    color: var(--spotify-dark);
+    border: none;
+    padding: 16px 40px;
+    border-radius: 30px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: transform 0.2s;
+  }
+  .wrapped-done-btn:hover { transform: scale(1.05); }
+
+  /* ======= SCENE 6: FINALE ======= */
+  #scene-finale {
+    background: linear-gradient(180deg, #FFD4A3 0%, #FFB5BA 50%, #FFA0B0 100%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .finale-sun {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFE88A, #FFD166, transparent 70%);
+    animation: sunGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes sunGlow {
+    from { transform: scale(1); opacity: 0.7; }
+    to { transform: scale(1.2); opacity: 1; }
+  }
+
+  .finale-bike {
+    position: absolute;
+    bottom: 40px;
+    animation: finaleRide 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes finaleRide {
+    from { left: 10%; }
+    to { left: 50%; }
+  }
+
+  .love-text {
+    z-index: 10;
+    text-align: center;
+    animation: loveAppear 1.5s ease 0.5s both;
+  }
+
+  @keyframes loveAppear {
+    from { opacity: 0; transform: scale(0.5) rotate(-5deg); }
+    to { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  .love-big {
+    font-size: clamp(48px, 12vw, 80px);
+    color: white;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+    margin-bottom: 10px;
+  }
+
+  .love-sub {
+    font-size: clamp(22px, 5vw, 32px);
+    color: rgba(255,255,255,0.9);
+  }
+
+  .heart-float {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+    to { transform: translateY(-100px) rotate(20deg); opacity: 0; }
+  }
+
+  /* Doodle lines */
+  .doodle-line {
+    position: absolute;
+    opacity: 0.15;
+    stroke: var(--dark);
+    fill: none;
+    stroke-dasharray: 6 4;
+    stroke-width: 2;
+  }
+
+  /* Flower bounce animation */
+  @keyframes flowerBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
+  }
+
+  .flower-card svg {
+    animation: flowerBounce 2s ease-in-out infinite;
+  }
+  .flower-card:nth-child(2) svg { animation-delay: 0.3s; }
+  .flower-card:nth-child(3) svg { animation-delay: 0.6s; }
+
+  /* Fade in utility */
+  .fade-in {
+    animation: fadeIn 0.8s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Sparkles */
+  .sparkle {
+    position: absolute;
+    pointer-events: none;
+    animation: sparkleAnim 0.8s ease forwards;
+  }
+  @keyframes sparkleAnim {
+    0% { opacity: 1; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0; transform: scale(0.5) translateY(-20px); }
+  }
+
+  /* wrapped scroll smoothly */
+  #scene-wrapped { scroll-behavior: smooth; }
+
+  .wrapped-scroll-area {
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    height: 100vh;
+  }
+
+  .wrapped-slide {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .flowers-appeared-text {
+    font-size: 24px;
+    color: var(--dark);
+    text-align: center;
+    z-index: 10;
+    animation: popIn 0.6s ease;
+    margin-bottom: -10px;
+  }
+  @keyframes popIn {
+    from { transform: scale(0) rotate(-5deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Music Player -->
+<div id="musicPlayer" style="position:fixed;bottom:16px;right:16px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+  <!-- Tap to play button -->
+  <div id="musicBtn" onclick="toggleMusic()" style="background:rgba(0,0,0,0.75);color:white;padding:10px 18px;border-radius:30px;font-family:'Caveat',cursive;font-size:17px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(14px);cursor:pointer;border:1.5px solid rgba(255,255,255,0.15);transition:transform 0.2s;user-select:none;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">
+    <span id="musicIcon" style="display:inline-block;font-size:20px;">▶️</span>
+    <span id="musicLabel">tap to play our song 🎵</span>
+  </div>
+  <!-- Hidden Spotify embed — only injected after user taps -->
+  <div id="spotifyContainer" style="display:none;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);"></div>
+</div>
+
+<script>
+  let musicPlaying = false;
+  let spotifyInjected = false;
+
+  function toggleMusic() {
+    const container = document.getElementById('spotifyContainer');
+    const label = document.getElementById('musicLabel');
+    const icon = document.getElementById('musicIcon');
+
+    if (!spotifyInjected) {
+      // Inject Spotify embed on first tap — autoplay works because it's a direct user gesture
+      container.innerHTML = `<iframe
+        src="https://open.spotify.com/embed/track/2fO7BPpCQ4EfTlMBaLlMJz?utm_source=generator&autoplay=1&theme=0"
+        width="260" height="80"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        style="display:block;">
+      </iframe>`;
+      container.style.display = 'block';
+      spotifyInjected = true;
+      musicPlaying = true;
+      label.textContent = 'tattoo, sade 💿';
+      icon.style.animation = 'spin 3s linear infinite';
+      icon.textContent = '💿';
+    } else {
+      // Toggle visibility
+      if (container.style.display === 'none') {
+        container.style.display = 'block';
+        musicPlaying = true;
+        icon.textContent = '💿';
+        icon.style.animation = 'spin 3s linear infinite';
+        label.textContent = 'tattoo, sade 💿';
+      } else {
+        container.style.display = 'none';
+        musicPlaying = false;
+        icon.textContent = '▶️';
+        icon.style.animation = 'none';
+        label.textContent = 'tap to play our song 🎵';
+      }
+    }
+  }
+</script>
+
+<!-- ====== SCENE 1: BICYCLE ====== -->
+<div id="scene-bicycle" class="scene active">
+  <!-- Sky elements -->
+  <svg class="sun" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="35" cy="35" r="22" fill="#FFE88A" stroke="#F4C430" stroke-width="3"/>
+    <circle cx="35" cy="35" r="16" fill="#FFD166"/>
+    <!-- rays -->
+    <line x1="35" y1="5" x2="35" y2="0" stroke="#F4C430" stroke-width="3" stroke-linecap="round"/>
+    <line x1="35" y1="65" x2="35" y2="70" stroke="#F4C430" stroke-width="3" stroke-linecap="round"/>
+    <line x1="5" y1="35" x2="0" y2="35" stroke="#F4C430" stroke-width="3" stroke-linecap="round"/>
+    <line x1="65" y1="35" x2="70" y2="35" stroke="#F4C430" stroke-width="3" stroke-linecap="round"/>
+    <line x1="13" y1="13" x2="9" y2="9" stroke="#F4C430" stroke-width="3" stroke-linecap="round"/>
+    <line x1="57" y1="57" x2="61" y2="61" stroke="#F4C430" stroke-width="3" stroke-linecap="round"/>
+    <line x1="57" y1="13" x2="61" y2="9" stroke="#F4C430" stroke-width="3" stroke-linecap="round"/>
+    <line x1="13" y1="57" x2="9" y2="61" stroke="#F4C430" stroke-width="3" stroke-linecap="round"/>
+    <!-- face -->
+    <circle cx="27" cy="32" r="3" fill="#F4C430"/>
+    <circle cx="43" cy="32" r="3" fill="#F4C430"/>
+    <path d="M27 42 Q35 48 43 42" stroke="#F4C430" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  </svg>
+
+  <!-- Clouds -->
+  <svg class="clouds" viewBox="0 0 800 200" fill="none" preserveAspectRatio="xMidYMid slice" style="position:absolute;top:0;width:100%;height:200px;">
+    <g opacity="0.9">
+      <ellipse cx="120" cy="80" rx="60" ry="30" fill="white"/>
+      <ellipse cx="155" cy="65" rx="40" ry="25" fill="white"/>
+      <ellipse cx="85" cy="72" rx="35" ry="22" fill="white"/>
+      <!-- doodle outline -->
+      <ellipse cx="120" cy="80" rx="60" ry="30" fill="none" stroke="#ddd" stroke-width="2" stroke-dasharray="5 3"/>
+    </g>
+    <g opacity="0.85">
+      <ellipse cx="500" cy="55" rx="70" ry="32" fill="white"/>
+      <ellipse cx="540" cy="40" rx="45" ry="26" fill="white"/>
+      <ellipse cx="460" cy="48" rx="40" ry="24" fill="white"/>
+    </g>
+    <g opacity="0.7">
+      <ellipse cx="700" cy="90" rx="50" ry="24" fill="white"/>
+      <ellipse cx="730" cy="75" rx="35" ry="20" fill="white"/>
+    </g>
+  </svg>
+
+  <!-- Trees -->
+  <svg class="tree" style="left:60px; bottom:28px;" width="50" height="80" viewBox="0 0 50 80">
+    <rect x="20" y="55" width="10" height="25" fill="#8B6355" rx="2"/>
+    <ellipse cx="25" cy="40" rx="22" ry="30" fill="#6BBF6B"/>
+    <ellipse cx="25" cy="35" rx="18" ry="22" fill="#7DC87D"/>
+    <!-- doodle lines on tree -->
+    <path d="M15 35 Q25 20 35 35" stroke="#5CA55C" stroke-width="1.5" fill="none" stroke-dasharray="4 2"/>
+  </svg>
+
+  <svg class="tree" style="left:200px; bottom:28px;" width="40" height="65" viewBox="0 0 40 65">
+    <rect x="16" y="45" width="8" height="20" fill="#8B6355" rx="2"/>
+    <ellipse cx="20" cy="32" rx="18" ry="25" fill="#7DC87D"/>
+    <ellipse cx="20" cy="26" rx="14" ry="18" fill="#8DD88D"/>
+  </svg>
+
+  <!-- Ground patches -->
+  <svg style="position:absolute;bottom:28px;width:100%;height:20px;" viewBox="0 0 800 20" preserveAspectRatio="none">
+    <rect width="800" height="20" fill="#7AB87A"/>
+    <path d="M0 0 Q50 8 100 2 Q150 -2 200 5 Q250 12 300 3 Q350 -1 400 6 Q450 13 500 4 Q550 0 600 8 Q650 15 700 5 Q750 -1 800 4" fill="#88C888" stroke="none"/>
+  </svg>
+
+  <!-- Road -->
+  <div class="road"></div>
+
+  <!-- House -->
+  <div class="house-scene" id="houseBtn" title="Click the house!">
+    <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
+      <!-- chimney -->
+      <rect x="70" y="18" width="12" height="20" fill="#D4756B" rx="2"/>
+      <rect x="68" y="16" width="16" height="6" fill="#C4655B" rx="2"/>
+      <!-- smoke puffs -->
+      <circle cx="76" cy="10" r="6" fill="rgba(200,200,200,0.7)"/>
+      <circle cx="80" cy="4" r="5" fill="rgba(200,200,200,0.6)"/>
+      <circle cx="74" cy="0" r="4" fill="rgba(200,200,200,0.5)"/>
+      <!-- roof -->
+      <polygon points="10,50 55,10 100,50" fill="#D4756B"/>
+      <polygon points="10,50 55,10 100,50" fill="none" stroke="#8B4B44" stroke-width="3" stroke-linejoin="round"/>
+      <!-- roof doodle -->
+      <path d="M20 43 L55 16 L90 43" stroke="#C4655B" stroke-width="1.5" fill="none" stroke-dasharray="5 3"/>
+      <!-- walls -->
+      <rect x="15" y="48" width="80" height="55" fill="#FFE8CC" rx="3"/>
+      <rect x="15" y="48" width="80" height="55" fill="none" stroke="#8B6355" stroke-width="3" rx="3"/>
+      <!-- window left -->
+      <rect x="22" y="58" width="22" height="20" fill="#B5D8F7" rx="3"/>
+      <rect x="22" y="58" width="22" height="20" fill="none" stroke="#8B6355" stroke-width="2" rx="3"/>
+      <line x1="33" y1="58" x2="33" y2="78" stroke="#8B6355" stroke-width="1.5"/>
+      <line x1="22" y1="68" x2="44" y2="68" stroke="#8B6355" stroke-width="1.5"/>
+      <!-- window right -->
+      <rect x="66" y="58" width="22" height="20" fill="#B5D8F7" rx="3"/>
+      <rect x="66" y="58" width="22" height="20" fill="none" stroke="#8B6355" stroke-width="2" rx="3"/>
+      <line x1="77" y1="58" x2="77" y2="78" stroke="#8B6355" stroke-width="1.5"/>
+      <line x1="66" y1="68" x2="88" y2="68" stroke="#8B6355" stroke-width="1.5"/>
+      <!-- door -->
+      <rect x="40" y="72" width="22" height="31" fill="#C4855B" rx="3 3 0 0"/>
+      <rect x="40" y="72" width="22" height="31" fill="none" stroke="#8B6355" stroke-width="2" rx="3 3 0 0"/>
+      <circle cx="59" cy="88" r="2.5" fill="#FFD166"/>
+      <!-- flower boxes on windows -->
+      <rect x="19" y="76" width="28" height="6" fill="#A8D8A8" rx="2"/>
+      <text x="21" y="82" font-size="7">🌸🌼🌸</text>
+      <rect x="63" y="76" width="28" height="6" fill="#A8D8A8" rx="2"/>
+      <text x="65" y="82" font-size="7">🌸🌼🌸</text>
+    </svg>
+    <div class="house-label">✨ click the house! ✨</div>
+  </div>
+
+  <!-- Bicycle with stick figures -->
+  <div class="bicycle-wrapper" id="bikeWrapper">
+    <div class="bounce">
+      <svg width="200" height="120" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rear wheel -->
+        <g class="wheel-spin" style="transform-origin: 40px 85px;">
+          <circle cx="40" cy="85" r="28" fill="none" stroke="#3D2B1F" stroke-width="4"/>
+          <circle cx="40" cy="85" r="5" fill="#3D2B1F"/>
+          <line x1="40" y1="57" x2="40" y2="113" stroke="#3D2B1F" stroke-width="2.5"/>
+          <line x1="12" y1="85" x2="68" y2="85" stroke="#3D2B1F" stroke-width="2.5"/>
+          <line x1="20" y1="65" x2="60" y2="105" stroke="#3D2B1F" stroke-width="2"/>
+          <line x1="60" y1="65" x2="20" y2="105" stroke="#3D2B1F" stroke-width="2"/>
+        </g>
+        <!-- Front wheel -->
+        <g class="wheel-spin" style="transform-origin: 158px 85px;">
+          <circle cx="158" cy="85" r="28" fill="none" stroke="#3D2B1F" stroke-width="4"/>
+          <circle cx="158" cy="85" r="5" fill="#3D2B1F"/>
+          <line x1="158" y1="57" x2="158" y2="113" stroke="#3D2B1F" stroke-width="2.5"/>
+          <line x1="130" y1="85" x2="186" y2="85" stroke="#3D2B1F" stroke-width="2.5"/>
+          <line x1="138" y1="65" x2="178" y2="105" stroke="#3D2B1F" stroke-width="2"/>
+          <line x1="178" y1="65" x2="138" y2="105" stroke="#3D2B1F" stroke-width="2"/>
+        </g>
+
+        <!-- Frame -->
+        <line x1="40" y1="85" x2="99" y2="52" stroke="#3D2B1F" stroke-width="4" stroke-linecap="round"/>
+        <line x1="99" y1="52" x2="158" y2="85" stroke="#3D2B1F" stroke-width="4" stroke-linecap="round"/>
+        <line x1="99" y1="52" x2="70" y2="85" stroke="#3D2B1F" stroke-width="3" stroke-linecap="round"/>
+        <!-- Seat post -->
+        <line x1="70" y1="85" x2="80" y2="55" stroke="#3D2B1F" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- Seat -->
+        <ellipse cx="80" cy="52" rx="16" ry="5" fill="#8B6355" stroke="#3D2B1F" stroke-width="2"/>
+        <!-- Handlebar post -->
+        <line x1="158" y1="65" x2="155" y2="45" stroke="#3D2B1F" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="148" y1="43" x2="162" y2="43" stroke="#3D2B1F" stroke-width="3" stroke-linecap="round"/>
+        <!-- Pedals -->
+        <circle cx="70" cy="85" r="7" fill="none" stroke="#3D2B1F" stroke-width="3"/>
+        <line x1="63" y1="85" x2="77" y2="85" stroke="#3D2B1F" stroke-width="2.5"/>
+        <!-- Chain -->
+        <path d="M40 85 Q55 95 70 85" stroke="#666" stroke-width="2" fill="none" stroke-dasharray="3 2"/>
+
+        <!-- Basket on front -->
+        <rect x="158" y="64" width="20" height="14" fill="#C4A882" stroke="#8B6355" stroke-width="2" rx="2"/>
+        <line x1="162" y1="64" x2="162" y2="78" stroke="#8B6355" stroke-width="1.5"/>
+        <line x1="168" y1="64" x2="168" y2="78" stroke="#8B6355" stroke-width="1.5"/>
+        <line x1="174" y1="64" x2="174" y2="78" stroke="#8B6355" stroke-width="1.5"/>
+        <!-- Flowers in basket -->
+        <text x="158" y="63" font-size="12">🌸</text>
+
+        <!-- GUY (Sam) on back -->
+        <!-- Body -->
+        <line x1="88" y1="52" x2="88" y2="25" stroke="#3D2B1F" stroke-width="3" stroke-linecap="round"/>
+        <!-- Head -->
+        <circle cx="88" cy="18" r="10" fill="#FFD4A8" stroke="#3D2B1F" stroke-width="2.5"/>
+        <!-- Hair -->
+        <path d="M79 16 Q88 8 97 16" fill="#3D2B1F"/>
+        <!-- Face -->
+        <circle cx="85" cy="17" r="1.5" fill="#3D2B1F"/>
+        <circle cx="91" cy="17" r="1.5" fill="#3D2B1F"/>
+        <path d="M85 22 Q88 25 91 22" stroke="#3D2B1F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Arms -->
+        <line x1="88" y1="35" x2="75" y2="43" stroke="#3D2B1F" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="88" y1="35" x2="148" y2="43" stroke="#3D2B1F" stroke-width="2" stroke-linecap="round"/>
+        <!-- Legs -->
+        <line x1="88" y1="52" x2="78" y2="65" stroke="#3D2B1F" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="88" y1="52" x2="78" y2="65" stroke="#3D2B1F" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- GIRL (Ananya) on front/behind -->
+        <!-- Body -->
+        <line x1="110" y1="52" x2="110" y2="25" stroke="#3D2B1F" stroke-width="3" stroke-linecap="round"/>
+        <!-- Dress hint -->
+        <path d="M104 48 Q110 58 116 48" fill="#FF8FA3" stroke="#3D2B1F" stroke-width="1.5"/>
+        <!-- Head -->
+        <circle cx="110" cy="18" r="10" fill="#FFD4A8" stroke="#3D2B1F" stroke-width="2.5"/>
+        <!-- Hair (long) -->
+        <path d="M100 14 Q110 6 120 14" fill="#3D2B1F"/>
+        <path d="M100 14 Q97 24 100 35" fill="#3D2B1F" stroke="none"/>
+        <path d="M120 14 Q123 24 120 35" fill="#3D2B1F" stroke="none"/>
+        <!-- Face -->
+        <circle cx="107" cy="17" r="1.5" fill="#3D2B1F"/>
+        <circle cx="113" cy="17" r="1.5" fill="#3D2B1F"/>
+        <path d="M107 22 Q110 26 113 22" stroke="#3D2B1F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Hair bow -->
+        <path d="M105 9 Q110 5 115 9 Q110 12 105 9Z" fill="#FF8FA3"/>
+        <!-- Arms -->
+        <line x1="110" y1="35" x2="148" y2="43" stroke="#3D2B1F" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="110" y1="35" x2="100" y2="42" stroke="#3D2B1F" stroke-width="2" stroke-linecap="round"/>
+        <!-- Legs -->
+        <line x1="110" y1="52" x2="100" y2="65" stroke="#3D2B1F" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Heart between them -->
+        <text x="95" y="12" font-size="10">❤️</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Click hint -->
+  <div class="click-hint">
+    <div class="arrow-bounce">↓</div><br>
+    click the house to go in!
+  </div>
+</div>
+
+<!-- ====== SCENE 2: FLOWERS ====== -->
+<div id="scene-flowers" class="scene">
+  <div class="room-bg">
+    <div class="room-wall"></div>
+    <!-- Wallpaper dots -->
+    <svg class="wallpaper-pattern" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="15" cy="15" r="3" fill="#FF8FA3"/>
+      </pattern></defs>
+      <rect width="800" height="400" fill="url(#dots)"/>
+    </svg>
+    <div class="room-floor"></div>
+    <!-- Door frame hint -->
+    <svg style="position:absolute;bottom:35%;left:30px;opacity:0.4;" width="80" height="120" viewBox="0 0 80 120">
+      <rect x="5" y="0" width="70" height="120" fill="none" stroke="#8B6355" stroke-width="3" rx="3"/>
+      <rect x="10" y="5" width="60" height="110" fill="#D4A57A" rx="2"/>
+    </svg>
+  </div>
+
+  <div class="flowers-appeared-text">🌸 Woah! Flowers appeared! 🌸</div>
+  <div class="flower-title">Pick your favourite...</div>
+  <div class="flower-subtitle">click one to open a letter 💌</div>
+
+  <div class="flower-options">
+    <!-- Rose -->
+    <div class="flower-card" onclick="openLetter('rose')">
+      <svg width="90" height="120" viewBox="0 0 90 120">
+        <!-- stem -->
+        <path d="M45 120 Q42 90 45 70" stroke="#4A8C4A" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M45 95 Q32 85 28 75" stroke="#4A8C4A" stroke-width="3" fill="none"/>
+        <path d="M28 75 Q24 68 30 65" stroke="#4A8C4A" stroke-width="2" fill="none"/>
+        <!-- Leaf -->
+        <ellipse cx="33" cy="75" rx="10" ry="6" fill="#5AAB5A" transform="rotate(-30 33 75)"/>
+        <!-- petals -->
+        <ellipse cx="45" cy="42" rx="18" ry="22" fill="#FF6B8A"/>
+        <ellipse cx="35" cy="50" rx="14" ry="18" fill="#FF8FA3"/>
+        <ellipse cx="55" cy="50" rx="14" ry="18" fill="#FF8FA3"/>
+        <ellipse cx="32" cy="40" rx="12" ry="16" fill="#FF6B8A"/>
+        <ellipse cx="58" cy="40" rx="12" ry="16" fill="#FF6B8A"/>
+        <ellipse cx="45" cy="30" rx="14" ry="16" fill="#FFB5C8"/>
+        <!-- Center -->
+        <ellipse cx="45" cy="44" rx="10" ry="10" fill="#FF4070"/>
+        <path d="M40 40 Q45 36 50 40 Q47 48 40 40Z" fill="#FF6B8A"/>
+        <!-- doodle lines -->
+        <path d="M38 38 Q45 32 52 38" stroke="#D43060" stroke-width="1.5" fill="none"/>
+      </svg>
+      <div class="flower-label">🌹 Rose</div>
+    </div>
+
+    <!-- Lily -->
+    <div class="flower-card" onclick="openLetter('lily')">
+      <svg width="90" height="120" viewBox="0 0 90 120">
+        <!-- stem -->
+        <path d="M45 120 Q47 90 45 65" stroke="#4A8C4A" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Leaves -->
+        <ellipse cx="38" cy="88" rx="12" ry="5" fill="#5AAB5A" transform="rotate(-40 38 88)"/>
+        <ellipse cx="52" cy="95" rx="12" ry="5" fill="#5AAB5A" transform="rotate(40 52 95)"/>
+        <!-- Lily petals - 6 petals -->
+        <ellipse cx="45" cy="38" rx="10" ry="24" fill="#FFF5E6" stroke="#E8C88A" stroke-width="1.5"/>
+        <ellipse cx="45" cy="38" rx="10" ry="24" fill="#FFF5E6" transform="rotate(60 45 38)" stroke="#E8C88A" stroke-width="1.5"/>
+        <ellipse cx="45" cy="38" rx="10" ry="24" fill="#FFF5E6" transform="rotate(-60 45 38)" stroke="#E8C88A" stroke-width="1.5"/>
+        <ellipse cx="45" cy="38" rx="8" ry="20" fill="#FFFBF0" transform="rotate(30 45 38)"/>
+        <ellipse cx="45" cy="38" rx="8" ry="20" fill="#FFFBF0" transform="rotate(-30 45 38)"/>
+        <ellipse cx="45" cy="38" rx="8" ry="20" fill="#FFFBF0" transform="rotate(90 45 38)"/>
+        <!-- Spots on lily -->
+        <circle cx="38" cy="30" r="2" fill="#F4A830" opacity="0.6"/>
+        <circle cx="52" cy="32" r="2" fill="#F4A830" opacity="0.6"/>
+        <circle cx="44" cy="25" r="1.5" fill="#F4A830" opacity="0.6"/>
+        <!-- Stamens -->
+        <line x1="45" y1="38" x2="38" y2="22" stroke="#F4A830" stroke-width="1.5"/>
+        <line x1="45" y1="38" x2="52" y2="22" stroke="#F4A830" stroke-width="1.5"/>
+        <line x1="45" y1="38" x2="45" y2="20" stroke="#F4A830" stroke-width="1.5"/>
+        <circle cx="38" cy="21" r="3" fill="#F4A830"/>
+        <circle cx="52" cy="21" r="3" fill="#F4A830"/>
+        <circle cx="45" cy="19" r="3" fill="#F4A830"/>
+      </svg>
+      <div class="flower-label">🌸 Lily</div>
+    </div>
+
+    <!-- Tulip -->
+    <div class="flower-card" onclick="openLetter('tulip')">
+      <svg width="90" height="120" viewBox="0 0 90 120">
+        <!-- stem -->
+        <path d="M45 120 Q43 85 45 62" stroke="#4A8C4A" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- leaf -->
+        <path d="M45 88 Q28 80 25 68 Q38 72 45 88Z" fill="#5AAB5A"/>
+        <path d="M45 80 Q62 72 65 60 Q52 64 45 80Z" fill="#5AAB5A"/>
+        <!-- tulip cup -->
+        <path d="M22 55 Q25 30 45 22 Q65 30 68 55 Q60 65 45 68 Q30 65 22 55Z" fill="#B44FE8"/>
+        <path d="M22 55 Q25 30 45 22" stroke="#9B3BD0" stroke-width="2" fill="none"/>
+        <path d="M45 22 Q65 30 68 55" stroke="#9B3BD0" stroke-width="2" fill="none"/>
+        <!-- inner shading -->
+        <path d="M30 55 Q32 35 45 28 Q58 35 60 55" fill="#C86EF0" opacity="0.5"/>
+        <!-- center line -->
+        <line x1="45" y1="22" x2="45" y2="66" stroke="#9B3BD0" stroke-width="1.5" opacity="0.5"/>
+        <!-- petal tips -->
+        <path d="M22 55 Q18 45 25 38" stroke="#B44FE8" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M68 55 Q72 45 65 38" stroke="#B44FE8" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="flower-label">💜 Tulip</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SCENE 3: LETTER ====== -->
+<div id="scene-letter" class="scene">
+  <div class="letter-paper" id="letterPaper">
+    <div class="letter-flower-icon" id="letterFlowerIcon"></div>
+    <div id="letterContent"></div>
+    <div class="letter-closing" id="letterClosing"></div>
+  </div>
+  <button class="letter-continue-btn" id="letterContinueBtn" onclick="goToPhone()">
+    ring ring... 📱
+  </button>
+</div>
+
+<!-- ====== SCENE 4: PHONE ====== -->
+<div id="scene-phone" class="scene">
+  <div class="phone-ring-text">📳 your phone is buzzing...</div>
+  <div class="phone-wrapper">
+    <div class="phone-svg-wrapper" id="phoneSvg" onclick="openNotification()">
+      <svg width="180" height="320" viewBox="0 0 180 320" fill="none">
+        <!-- Phone body -->
+        <rect x="10" y="5" width="160" height="310" rx="24" fill="#1a1a1a"/>
+        <rect x="10" y="5" width="160" height="310" rx="24" fill="none" stroke="#333" stroke-width="3"/>
+        <!-- Screen -->
+        <rect x="18" y="28" width="144" height="264" rx="14" fill="#121212"/>
+        <!-- Status bar -->
+        <rect x="18" y="28" width="144" height="24" rx="14" fill="#1a1a1a"/>
+        <!-- Notch -->
+        <rect x="65" y="30" width="50" height="12" rx="6" fill="#000"/>
+        <!-- Lock screen content -->
+        <text x="90" y="100" font-family="Nunito, sans-serif" font-size="36" font-weight="900" fill="white" text-anchor="middle">12:00</text>
+        <text x="90" y="120" font-family="Nunito, sans-serif" font-size="12" fill="rgba(255,255,255,0.6)" text-anchor="middle">April 26, 2026</text>
+        <!-- Wallpaper doodle hearts -->
+        <text x="30" y="170" font-size="18" opacity="0.3">💕</text>
+        <text x="120" y="190" font-size="14" opacity="0.3">💫</text>
+        <text x="60" y="210" font-size="16" opacity="0.3">✨</text>
+        <!-- Home indicator -->
+        <rect x="65" y="282" width="50" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <!-- Side buttons -->
+        <rect x="6" y="80" width="5" height="30" rx="2" fill="#2a2a2a"/>
+        <rect x="6" y="120" width="5" height="30" rx="2" fill="#2a2a2a"/>
+        <rect x="169" y="90" width="5" height="50" rx="2" fill="#2a2a2a"/>
+        <!-- Click hint -->
+        <text x="90" y="248" font-family="Caveat, cursive" font-size="14" fill="rgba(255,255,255,0.5)" text-anchor="middle">tap to check</text>
+      </svg>
+    </div>
+
+    <!-- Notification bubble (hidden initially) -->
+    <div class="notification-bubble" id="notifBubble" style="display:none; position:relative; top:auto; left:auto; transform:none; margin-top:20px;">
+      <div class="notif-header">
+        <span style="width:20px;height:20px;background:#1DB954;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;">♫</span>
+        <span>Spotify Wrapped</span>
+        <span style="margin-left:auto">now</span>
+      </div>
+      <div class="notif-title">🎉 Your Wrapped is here!</div>
+      <div class="notif-body">Your year in music, and love, is ready to see. Tap to view Ananya & Sam Wrapped.</div>
+      <button class="notif-cta" onclick="goToWrapped()">See Ananya & Sam Wrapped 💚</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SCENE 5: WRAPPED ====== -->
+<div id="scene-wrapped" class="scene">
+  <div class="wrapped-scroll-area" id="wrappedScroll">
+
+    <!-- Slide 1: Intro -->
+    <div class="wrapped-slide slide-1">
+      <div class="wrapped-emoji">🎵</div>
+      <div class="wrapped-label">your 2025–2026 wrapped</div>
+      <div class="wrapped-big" style="font-size: clamp(36px,8vw,60px);">Ananya<br>&<br>Sam</div>
+      <div class="wrapped-sub" style="margin-top:16px;">one whole year of us</div>
+    </div>
+
+    <!-- Slide 2: Days together -->
+    <div class="wrapped-slide slide-2">
+      <div class="wrapped-emoji">📅</div>
+      <div class="wrapped-label">since april 26, 2025</div>
+      <div class="wrapped-big">365</div>
+      <div class="wrapped-med">days together</div>
+      <div class="stat-grid" style="max-width:340px;">
+        <div class="stat-box">
+          <div class="stat-num">8,760</div>
+          <div class="stat-label">hours</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">525,600</div>
+          <div class="stat-label">minutes</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">52</div>
+          <div class="stat-label">weeks</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">12</div>
+          <div class="stat-label">months</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Soundtrack -->
+    <div class="wrapped-slide slide-3">
+      <div class="wrapped-emoji">🎶</div>
+      <div class="wrapped-label">the soundtrack of our life</div>
+      <div class="wrapped-med">#1 Song</div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:20px;padding:24px 30px;margin-top:16px;max-width:320px;">
+        <div style="font-size:48px;margin-bottom:10px;">🎸</div>
+        <div style="font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:white;">Always</div>
+        <div style="font-family:'Nunito',sans-serif;font-size:16px;color:rgba(255,255,255,0.7);margin-top:4px;">Daniel Caesar</div>
+        <div style="font-family:'Caveat',cursive;font-size:16px;color:rgba(255,255,255,0.85);margin-top:12px;line-height:1.5;">our FAVVVV song</div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Top songs -->
+    <div class="wrapped-slide slide-4">
+      <div class="wrapped-emoji">🎧</div>
+      <div class="wrapped-label">our top 5 songs</div>
+      <div class="wrapped-med" style="margin-bottom:4px;">Our Playlist</div>
+      <div class="song-list" style="max-width:380px;">
+        <div class="song-item">
+          <div class="song-num">1</div>
+          <div class="vinyl-icon">🎵</div>
+          <div class="song-info">
+            <div class="song-name">Always</div>
+            <div class="song-artist">Daniel Caesar</div>
+            <div class="song-note">IM ALWAYSSS WAYS WAYS IM ALWAYSSS</div>
+          </div>
+        </div>
+        <div class="song-item">
+          <div class="song-num">2</div>
+          <div class="vinyl-icon">🎵</div>
+          <div class="song-info">
+            <div class="song-name">Ivy</div>
+            <div class="song-artist">Frank Ocean</div>
+            <div class="song-note">I THOUGHT I WAS DREAMINNNN WHEN YOU SAID YOU LOVED MEEEE</div>
+          </div>
+        </div>
+        <div class="song-item">
+          <div class="song-num">3</div>
+          <div class="vinyl-icon">🎵</div>
+          <div class="song-info">
+            <div class="song-name">Best I Ever Had</div>
+            <div class="song-artist">Drake</div>
+            <div class="song-note">SWEATPANTS HAIR TIED CHILLING WITH NO MAKE UP ON</div>
+          </div>
+        </div>
+        <div class="song-item">
+          <div class="song-num">4</div>
+          <div class="vinyl-icon">🎵</div>
+          <div class="song-info">
+            <div class="song-name">Kingston</div>
+            <div class="song-artist">Fousheé</div>
+            <div class="song-note">HE SAID BABY THAT WHAT HE CALLED ME</div>
+          </div>
+        </div>
+        <div class="song-item">
+          <div class="song-num">5</div>
+          <div class="vinyl-icon">🎵</div>
+          <div class="song-info">
+            <div class="song-name">Ghost Town</div>
+            <div class="song-artist">Kanye West</div>
+            <div class="song-note">IVE BEEN TRYINGGGGG TO MAKE YOU LOVEEEEE MEEEEEEE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: More stats -->
+    <div class="wrapped-slide slide-5">
+      <div class="wrapped-emoji">📊</div>
+      <div class="wrapped-label">things that matter more</div>
+      <div class="wrapped-med">the real stats</div>
+      <div class="stat-grid" style="max-width:340px;margin-top:16px;">
+        <div class="stat-box">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">calls</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1</div>
+          <div class="stat-label">playlist together</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">my favourite person</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">#1</div>
+          <div class="stat-label">funniest person itw</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Your genre -->
+    <div class="wrapped-slide slide-6">
+      <div class="wrapped-emoji">🗣️</div>
+      <div class="wrapped-label">your love language</div>
+      <div class="wrapped-big" style="font-size:clamp(32px,7vw,52px);">Late Night<br>Conversations</div>
+      <div class="wrapped-sub" style="max-width:300px;margin-top:20px;">talking for hours without running out of things to say</div>
+    </div>
+
+    <!-- Slide 7: Year in review -->
+    <div class="wrapped-slide slide-7">
+      <div class="wrapped-emoji">🗓️</div>
+      <div class="wrapped-label">year one in review</div>
+      <div class="wrapped-med" style="color:#121212;">Highlights</div>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px;max-width:340px;width:100%;">
+        <div style="background:rgba(255,255,255,0.6);border-radius:14px;padding:16px 20px;font-family:'Caveat',cursive;font-size:18px;color:#1a1a1a;text-align:left;">
+          💋 first kiss
+        </div>
+        <div style="background:rgba(255,255,255,0.6);border-radius:14px;padding:16px 20px;font-family:'Caveat',cursive;font-size:18px;color:#1a1a1a;text-align:left;">
+          🌹 first date
+        </div>
+        <div style="background:rgba(255,255,255,0.6);border-radius:14px;padding:16px 20px;font-family:'Caveat',cursive;font-size:18px;color:#1a1a1a;text-align:left;">
+          😈 first freaky time
+        </div>
+        <div style="background:rgba(255,255,255,0.6);border-radius:14px;padding:16px 20px;font-family:'Caveat',cursive;font-size:20px;font-weight:700;color:#1a1a1a;text-align:left;">
+          🎉 1 YEAR ANNIVERSARY!
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: Final wrapped message -->
+    <div class="wrapped-slide slide-8">
+      <div class="wrapped-label">one more thing...</div>
+      <div class="wrapped-med">you are the best<br>thing in my life</div>
+      <div class="wrapped-sub" style="max-width:320px;margin-top:20px;line-height:1.8;">
+        happy 1 year, ananya.<br>here's to a thousand more playlists,<br>a thousand more dates,<br>and all the flowers in between 🌸
+      </div>
+      <button class="wrapped-done-btn" onclick="goToFinale()">keep riding...</button>
+    </div>
+
+  </div>
+  <div class="scroll-hint">scroll down ↓</div>
+</div>
+
+<!-- ====== SCENE 6: FINALE ====== -->
+<div id="scene-finale" class="scene">
+  <div class="finale-sun" id="finaleSun"></div>
+
+  <!-- Floating hearts -->
+  <div id="heartsContainer"></div>
+
+  <!-- Bike riding off -->
+  <div class="finale-bike" id="finaleBike">
+    <svg width="160" height="95" viewBox="0 0 200 120" fill="none">
+      <g class="wheel-spin" style="transform-origin:40px 85px">
+        <circle cx="40" cy="85" r="28" fill="none" stroke="#3D2B1F" stroke-width="4"/>
+        <circle cx="40" cy="85" r="5" fill="#3D2B1F"/>
+        <line x1="40" y1="57" x2="40" y2="113" stroke="#3D2B1F" stroke-width="2.5"/>
+        <line x1="12" y1="85" x2="68" y2="85" stroke="#3D2B1F" stroke-width="2.5"/>
+        <line x1="20" y1="65" x2="60" y2="105" stroke="#3D2B1F" stroke-width="2"/>
+        <line x1="60" y1="65" x2="20" y2="105" stroke="#3D2B1F" stroke-width="2"/>
+      </g>
+      <g class="wheel-spin" style="transform-origin:158px 85px">
+        <circle cx="158" cy="85" r="28" fill="none" stroke="#3D2B1F" stroke-width="4"/>
+        <circle cx="158" cy="85" r="5" fill="#3D2B1F"/>
+        <line x1="158" y1="57" x2="158" y2="113" stroke="#3D2B1F" stroke-width="2.5"/>
+        <line x1="130" y1="85" x2="186" y2="85" stroke="#3D2B1F" stroke-width="2.5"/>
+        <line x1="138" y1="65" x2="178" y2="105" stroke="#3D2B1F" stroke-width="2"/>
+        <line x1="178" y1="65" x2="138" y2="105" stroke="#3D2B1F" stroke-width="2"/>
+      </g>
+      <line x1="40" y1="85" x2="99" y2="52" stroke="#3D2B1F" stroke-width="4" stroke-linecap="round"/>
+      <line x1="99" y1="52" x2="158" y2="85" stroke="#3D2B1F" stroke-width="4" stroke-linecap="round"/>
+      <line x1="99" y1="52" x2="70" y2="85" stroke="#3D2B1F" stroke-width="3" stroke-linecap="round"/>
+      <line x1="70" y1="85" x2="80" y2="55" stroke="#3D2B1F" stroke-width="3.5" stroke-linecap="round"/>
+      <ellipse cx="80" cy="52" rx="16" ry="5" fill="#8B6355" stroke="#3D2B1F" stroke-width="2"/>
+      <line x1="158" y1="65" x2="155" y2="45" stroke="#3D2B1F" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="148" y1="43" x2="162" y2="43" stroke="#3D2B1F" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="70" cy="85" r="7" fill="none" stroke="#3D2B1F" stroke-width="3"/>
+      <line x1="88" y1="52" x2="88" y2="25" stroke="#3D2B1F" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="88" cy="18" r="10" fill="#FFD4A8" stroke="#3D2B1F" stroke-width="2.5"/>
+      <path d="M79 16 Q88 8 97 16" fill="#3D2B1F"/>
+      <line x1="88" y1="35" x2="148" y2="43" stroke="#3D2B1F" stroke-width="2" stroke-linecap="round"/>
+      <line x1="110" y1="52" x2="110" y2="25" stroke="#3D2B1F" stroke-width="3" stroke-linecap="round"/>
+      <path d="M104 48 Q110 58 116 48" fill="#FF8FA3" stroke="#3D2B1F" stroke-width="1.5"/>
+      <circle cx="110" cy="18" r="10" fill="#FFD4A8" stroke="#3D2B1F" stroke-width="2.5"/>
+      <path d="M100 14 Q110 6 120 14" fill="#3D2B1F"/>
+      <path d="M100 14 Q97 24 100 35" fill="#3D2B1F"/>
+      <path d="M120 14 Q123 24 120 35" fill="#3D2B1F"/>
+      <path d="M105 9 Q110 5 115 9 Q110 12 105 9Z" fill="#FF8FA3"/>
+      <line x1="110" y1="35" x2="148" y2="43" stroke="#3D2B1F" stroke-width="2.5" stroke-linecap="round"/>
+      <text x="95" y="12" font-size="10">❤️</text>
+    </svg>
+  </div>
+
+  <!-- I love you text -->
+  <div class="love-text">
+    <div class="love-big">I love you,</div>
+    <div class="love-big">Ananya 🌸</div>
+    <div class="love-sub" style="margin-top:16px;">Sam ❤️</div>
+    <div style="font-family:'Caveat',cursive;font-size:18px;color:rgba(255,255,255,0.85);margin-top:20px;max-width:340px;margin-left:auto;margin-right:auto;text-align:center;line-height:1.8;">
+      happy 1 year, my favourite person.<br>
+      forever on this little bicycle
+    </div>
+  </div>
+
+  <!-- Easter egg flower -->
+  <div id="easterFlower" onclick="showEasterEgg()" style="position:absolute;bottom:60px;left:30px;font-size:36px;cursor:pointer;animation:flowerBounce 2s ease-in-out infinite;z-index:20;" title="psst... click me">🌸</div>
+
+  <!-- Easter egg modal -->
+  <div id="easterModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;backdrop-filter:blur(8px);" onclick="this.style.display='none'">
+    <div style="background:white;border-radius:24px;padding:40px 36px;max-width:340px;text-align:center;font-family:'Caveat',cursive;animation:popIn 0.4s ease;position:relative;">
+      <div style="font-size:48px;margin-bottom:12px;">🌸</div>
+      <div style="font-size:26px;color:#3D2B1F;line-height:1.5;">instead of the bicycle</div>
+      <div style="font-size:22px;color:#FF8FA3;margin-top:8px;line-height:1.5;">you could also ride me forever</div>
+      <div style="font-size:18px;color:#8B6355;margin-top:16px;">but that's your choice 😇</div>
+      <div style="font-size:13px;color:#bbb;margin-top:20px;font-family:'Nunito',sans-serif;">tap anywhere to close</div>
+    </div>
+  </div>
+
+  <!-- Ground -->
+  <div style="position:absolute;bottom:0;width:100%;height:50px;background:#8BC88B;border-top:4px solid #7AB87A;"></div>
+</div>
+
+<script>
+  const letters = {
+    rose: {
+      icon: '🌹',
+      content: `<p>You picked the rose. Classic, bold, and a little dramatic, honestly very on-brand for how big this year has felt.</p>
+      <br>
+      <p>Roses are everywhere. They're the "obvious" choice, the cliché, the flower everyone reaches for when words fall short. But here's the thing, maybe they're everywhere because some things are just <em>true</em>. Undeniable. The kind of love that doesn't need to be explained, just felt.</p>
+      <br>
+      <p>That's what this year has been. Not subtle. Not complicated. Just real, and warm, and absolutely yours. Every cheesy love song that used to feel like too much? It's not enough now. You did that, Ananya. You made me the person who picks roses and means every petal.</p>`,
+      closing: 'With every cliché I now believe in, Sam 🌹'
+    },
+    lily: {
+      icon: '🌸',
+      content: `<p>You picked the lily. Of course you did, you told me once, on a call I still think about, that lilies are one of your favourites.</p>
+      <br>
+      <p>I remembered. I always remember the little things you say, even when you're just talking and you think I'm not paying attention. The flowers you love. The songs that hit different for you. The way you laugh at your own jokes before the punchline. I collect all of it.</p>
+      <br>
+      <p>Lilies are elegant and soft and quietly stunning, they don't need to shout. They just bloom and let you notice. That's kind of how I fell for you. Quietly at first, then all at once. A year later and I'm still noticing new things about you that make me smile like an idiot.</p>
+      <br>
+      <p>Happy anniversary. Thanks for the lily story. Thanks for every story.</p>`,
+      closing: 'Yours, always, Sam 🌸'
+    },
+    tulip: {
+      icon: '💜',
+      content: `<p>A tulip girlie. Bold in colour, structured but soft, honestly, such an Ananya choice.</p>
+      <br>
+      <p>You told me tulips were a favourite too, in that same call, I wrote it down in my heart immediately. There's something about the way you talk about the small things you love that just gets me every time. Like the whole world gets a little warmer when you're excited about something.</p>
+      <br>
+      <p>Tulips bloom in spring. We started in spring, April 26th, to be exact. Maybe that's why I love this choice. It feels like us, something that starts fresh and bright and just keeps getting more beautiful the longer you look at it.</p>
+      <br>
+      <p>One year, and you still make everything feel like the first warm day after a long winter.</p>`,
+      closing: 'Happy anniversary, Ananya, Sam 💜'
+    }
+  };
+
+  function showScene(id) {
+    document.querySelectorAll('.scene').forEach(s => {
+      s.classList.remove('active');
+      s.style.display = 'none';
+      s.style.opacity = '0';
+    });
+    const scene = document.getElementById(id);
+    scene.style.display = 'flex';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scene.classList.add('active');
+        scene.style.opacity = '1';
+      });
+    });
+  }
+
+  // Scene 1: House click
+  document.getElementById('houseBtn').addEventListener('click', () => {
+    // Sparkle effect
+    createSparkles(document.getElementById('houseBtn'));
+    setTimeout(() => showScene('scene-flowers'), 400);
+  });
+
+  function createSparkles(el) {
+    const rect = el.getBoundingClientRect();
+    for (let i = 0; i < 8; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = (rect.left + Math.random() * rect.width) + 'px';
+      s.style.top = (rect.top + Math.random() * rect.height) + 'px';
+      s.style.fontSize = (12 + Math.random() * 16) + 'px';
+      s.textContent = ['✨','🌸','💫','⭐'][Math.floor(Math.random()*4)];
+      s.style.position = 'fixed';
+      s.style.zIndex = 9999;
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 900);
+    }
+  }
+
+  function openLetter(type) {
+    const data = letters[type];
+    document.getElementById('letterFlowerIcon').textContent = data.icon;
+    document.getElementById('letterContent').innerHTML = data.content;
+    document.getElementById('letterClosing').innerHTML = data.closing;
+    showScene('scene-letter');
+  }
+
+  function goToPhone() {
+    showScene('scene-phone');
+  }
+
+  function openNotification() {
+    document.getElementById('phoneSvg').style.animation = 'none';
+    const notif = document.getElementById('notifBubble');
+    notif.style.display = 'block';
+  }
+
+  function goToWrapped() {
+    showScene('scene-wrapped');
+    document.getElementById('wrappedScroll').scrollTop = 0;
+  }
+
+  function goToFinale() {
+    showScene('scene-finale');
+    startHearts();
+  }
+
+  function startHearts() {
+    const container = document.getElementById('heartsContainer');
+    const emojis = ['❤️','💕','🌸','💫','✨','🌺','💖','🥰'];
+    let count = 0;
+    const interval = setInterval(() => {
+      if (count > 40) { clearInterval(interval); return; }
+      const h = document.createElement('div');
+      h.className = 'heart-float';
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = (3 + Math.random() * 4) + 's';
+      h.style.animationDelay = Math.random() * 2 + 's';
+      h.style.fontSize = (16 + Math.random() * 20) + 'px';
+      container.appendChild(h);
+      count++;
+    }, 300);
+  }
+
+  function showEasterEgg() {
+    document.getElementById('easterModal').style.display = 'flex';
+  }
+
+  // Scroll hint hide
+  const wrappedScroll = document.getElementById('wrappedScroll');
+  if (wrappedScroll) {
+    wrappedScroll.addEventListener('scroll', () => {
+      const hint = document.querySelector('.scroll-hint');
+      if (hint) hint.style.opacity = wrappedScroll.scrollTop > 50 ? '0' : '1';
+    });
+  }
+</script>
+</body>
+</html>
